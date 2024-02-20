@@ -25,6 +25,7 @@
     - name: Execute setup.sh if it exists
       when: r_script_test.stat.exists
       command: "bash ./{{ module_dir }}/{{ module_stage }}.sh"
+      ignore_errors: true
       register: r_result
 
     - name: Write script result to file
@@ -37,3 +38,7 @@
       ansible.builtin.debug:
         var: r_result
 
+    - name: Fail if stage was failed
+      ansible.builtin.fail:
+        msg: "Stage failed"
+      when: r_result.rc != 0
