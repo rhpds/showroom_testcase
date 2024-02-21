@@ -9,12 +9,8 @@ echo "Building new site..."
 podman run --rm --name showroom-builder --platform linux/amd64 -v "./:/antora" docker.io/antora/antora zero-touch-site.yml
 cp ./zero-touch-config.yml ./www/
 
- if test -f "/tmp/nookbag.zip"; then
-    echo "UI already downloaded."
-else
-    echo "Downloding UI..."
-    wget -q https://github.com/rhpds/nookbag/releases/download/nookbag-v0.0.4/nookbag-v0.0.4.zip -O /tmp/nookbag.zip 
-fi
+echo "Downloding UI..."
+wget -q https://github.com/rhpds/nookbag/releases/download/nookbag-v0.0.4/nookbag-v0.0.4.zip -O /tmp/nookbag.zip 
 
 tar -xf /tmp/nookbag.zip -C ./www/
 
